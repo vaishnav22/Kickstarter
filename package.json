@@ -10,12 +10,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.0",
     "@truffle/hdwallet-provider": "^2.1.2",
+    "bootstrap": "^5.2.3",
     "fs-extra": "^11.1.0",
     "ganache-cli": "^6.12.2",
     "mocha": "^10.1.0",
     "next": "^12.3.4",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "solc": "^0.4.17",
     "web3": "^1.8.1"
