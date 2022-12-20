@@ -1,36 +1,41 @@
-// import React from 'react'
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import React, { Component } from 'react'
+import { Button, Menu, Icon } from 'semantic-ui-react'
 
-export default function navbar() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+export default class MenuExampleBasic extends Component {
+  state = {}
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { activeItem } = this.state
+
+    return (
+      <Menu borderless size='large' inverted icon fixed='top'>
+        <Menu.Item
+          name='bitcoin'
+          active={activeItem === 'bitcoin'}
+          onClick={this.handleItemClick}
+        >
+          <Icon name='bitcoin' />
+        </Menu.Item>
+
+        <Menu.Item
+          name='editorials'
+          active={activeItem === 'editorials'}
+          onClick={this.handleItemClick}
+        >
+          Kickstarter
+        </Menu.Item>
+
+        <Menu.Item position='right'>
+          <Button animated>
+            <Button.Content visible>Create</Button.Content>
+            <Button.Content hidden>
+              <Icon name='mouse pointer' />
+            </Button.Content>
+          </Button>
+        </Menu.Item>
+      </Menu>
+    )
+  }
 }
-// export default () => {
-//     return <h1>welcome to show page</h1>
-// }

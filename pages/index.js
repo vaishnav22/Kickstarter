@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import factory from '../blockchain/factory'
-import Card from '../components/RenderCard'
-
+import { Card } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
+import CardExampleColumnCount from '../components/semantic-ui_card'
+import styles from '../css/index.module.css'
+import Blueprint from '../components/Blueprint'
 
 class KickstarterLanding extends Component {
 
@@ -9,7 +12,6 @@ class KickstarterLanding extends Component {
         const kickstarter = await factory.methods.getDeployedKickstarters().call();
         return { kickstarter }
     }
-
 
     renderData() {
         const items = this.props.kickstarter.map(address => {
@@ -19,13 +21,18 @@ class KickstarterLanding extends Component {
             }
         })
 
-        return <div>{items.map(Card)}</div>
+        return <div>{items.map(CardExampleColumnCount)}</div>
+        // return <Card.Group  centered items={items} />
     }
-
 
     render() {
         return (
-            <div>{this.renderData()}</div>
+            <Blueprint>
+                <div className={styles.body}>
+                    <h2>Current open projects</h2>
+                    {this.renderData()}
+                </div>
+            </Blueprint>
         )
     }
 }

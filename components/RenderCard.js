@@ -10,7 +10,7 @@ const BasicCard = (data, index) => {
   // console.log(props.items)
     return (
       <div className='card'>
-        <Card style={{ width: '18rem' }} key={index} >
+        <Card style={{ width: '35rem' }} key={index} >
           <Card.Body>
             <Card.Title>Kickstarter</Card.Title>
             <Card.Subtitle className="mb-6 text-muted">Address - </Card.Subtitle>

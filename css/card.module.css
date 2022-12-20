@@ -1,0 +1,12 @@
+.card {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+}
+
+.card_description {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
