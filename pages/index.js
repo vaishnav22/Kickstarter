@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import factory from '../blockchain/factory'
-import Card from '../components/Card'
+import Card from '../components/RenderCard'
 
 
 class KickstarterLanding extends Component {
@@ -11,17 +11,21 @@ class KickstarterLanding extends Component {
     }
 
 
-    render() {
+    renderData() {
         const items = this.props.kickstarter.map(address => {
             return {
                 header: address,
                 description: 'temp'
             }
         })
+
+        return <div>{items.map(Card)}</div>
+    }
+
+
+    render() {
         return (
-            <div>
-                {items.map((data) => <Card items={data} />)}
-            </div>
+            <div>{this.renderData()}</div>
         )
     }
 }
