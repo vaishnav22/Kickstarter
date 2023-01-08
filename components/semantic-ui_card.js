@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Label } from 'semantic-ui-react'
 import styles from '../css/card.module.css'
 
 // const description = [
@@ -11,6 +11,10 @@ const CardExampleExtraContent = (data, index) => (
   <Card key={index} className={styles.card}>
     <Card.Content header={'Kickstarter ' + index}/>
     <Card.Content description={data.header} className={styles.card_description}/>
+    <Label as='a' className={styles.label}>
+      <Icon name='mail' />
+      {data.description}
+    </Label>
     <Card.Content extra>
       <Icon name='user' />4 contribution
     </Card.Content>

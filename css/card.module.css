@@ -10,3 +10,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.label {
+    margin-left: 40px;
+    max-width: 70px;
+    margin-bottom: 30px;
+}

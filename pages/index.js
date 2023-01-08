@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import CardExampleColumnCount from '../components/semantic-ui_card'
 import styles from '../css/index.module.css'
 import Blueprint from '../components/Blueprint'
+import { Link } from '../routes'
 
 class KickstarterLanding extends Component {
 
@@ -17,7 +18,11 @@ class KickstarterLanding extends Component {
         const items = this.props.kickstarter.map(address => {
             return {
                 header: address,
-                description: 'temp'
+                description: (
+                    <Link route={`/kickstarter/${address}`}>
+                        <a>View</a>
+                    </Link>
+                )
             }
         })
 
