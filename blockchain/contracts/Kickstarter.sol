@@ -3,7 +3,7 @@ pragma solidity ^0.6.5;
 contract KickstarterFactory {
     address payable[] public deployedKickstarter;
 
-    function createKickstarter(uint min, string name) public {
+    function createKickstarter(uint min, string memory name) public {
         address newKicstarter = address(new Kickstarter(min, msg.sender, name));
         deployedKickstarter.push(payable(newKicstarter));
     }
@@ -31,10 +31,10 @@ contract Kickstarter {
 
     Petition[] public petitions;
 
-    constructor (uint deposit, address user, string name) public {
+    constructor (uint deposit, address user, string memory name) public {
         admin = user;
         initialPool = deposit;
-        projectName = name
+        projectName = name;
     }
 
     modifier restricted() {
@@ -79,7 +79,7 @@ contract Kickstarter {
         petition.isDone = true;
     }
 
-    function getDetails() public view returns (uint, uint, uint, uint, address, string) {
+    function getDetails() public view returns (uint, uint, uint, uint, address, string memory) {
         return (
             initialPool,
             address(this).balance,
