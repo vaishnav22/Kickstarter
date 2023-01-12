@@ -3,8 +3,8 @@ pragma solidity ^0.6.5;
 contract KickstarterFactory {
     address payable[] public deployedKickstarter;
 
-    function createKickstarter(uint min) public {
-        address newKicstarter = address(new Kickstarter(min, msg.sender));
+    function createKickstarter(uint min, string name) public {
+        address newKicstarter = address(new Kickstarter(min, msg.sender, name));
         deployedKickstarter.push(payable(newKicstarter));
     }
 
@@ -18,6 +18,7 @@ contract Kickstarter {
     mapping(address => bool) public doners;
     uint public donersCount;
     address public admin;
+    string projectName;
 
     struct Petition {
         string description;
@@ -30,9 +31,10 @@ contract Kickstarter {
 
     Petition[] public petitions;
 
-    constructor (uint deposit, address user) public {
+    constructor (uint deposit, address user, string name) public {
         admin = user;
         initialPool = deposit;
+        projectName = name
     }
 
     modifier restricted() {
@@ -49,14 +51,12 @@ contract Kickstarter {
 
     function createProposal(string memory description, uint price, address recipient) public restricted {
         require(doners[msg.sender]);
-        Petition storage newPetition = Petition({
-            description: description, 
-            price: price, 
-            recipient: recipient, 
-            isDone: false, 
-            backerCount: 0
-        });
-        petitions.push(newPetition);
+        Petition storage newPetition = petitions.push();
+            newPetition.description = description;
+            newPetition.price = price;
+            newPetition.recipient = recipient;
+            newPetition.isDone = false;
+            newPetition.backerCount = 0;
     }
 
     function passRequest(uint index) public {
@@ -79,13 +79,14 @@ contract Kickstarter {
         petition.isDone = true;
     }
 
-    function getDetails() public view returns (uint, uint, uint, uint, address) {
+    function getDetails() public view returns (uint, uint, uint, uint, address, string) {
         return (
             initialPool,
             address(this).balance,
             petitions.length,
             donersCount,
-            admin
+            admin,
+            projectName
         );
     }
 
