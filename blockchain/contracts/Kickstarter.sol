@@ -1,14 +1,14 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.6.5;
 
 contract KickstarterFactory {
-    address[] public deployedKickstarter;
+    address payable[] public deployedKickstarter;
 
     function createKickstarter(uint min) public {
-        address newKicstarter = new Kickstarter(min, msg.sender);
-        deployedKickstarter.push(newKicstarter);
+        address newKicstarter = address(new Kickstarter(min, msg.sender));
+        deployedKickstarter.push(payable(newKicstarter));
     }
 
-    function getDeployedKickstarters() public view returns (address[]) {
+    function getDeployedKickstarters() public view returns (address payable[] memory) {
         return deployedKickstarter;
     }
 }
@@ -30,7 +30,7 @@ contract Kickstarter {
 
     Petition[] public petitions;
 
-    function Kickstarter(uint deposit, address user) public {
+    constructor (uint deposit, address user) public {
         admin = user;
         initialPool = deposit;
     }
@@ -47,9 +47,9 @@ contract Kickstarter {
         donersCount++;
     }
 
-    function createProposal(string description, uint price, address recipient) public restricted {
+    function createProposal(string memory description, uint price, address recipient) public restricted {
         require(doners[msg.sender]);
-        Petition memory newPetition = Petition({
+        Petition storage newPetition = Petition({
             description: description, 
             price: price, 
             recipient: recipient, 
@@ -75,8 +75,22 @@ contract Kickstarter {
         require(petition.backerCount > (donersCount / 2));
         require(!petition.isDone);
 
-        petition.recipient.transfer(petition.price);
+        payable(petition.recipient).transfer(petition.price);
         petition.isDone = true;
+    }
+
+    function getDetails() public view returns (uint, uint, uint, uint, address) {
+        return (
+            initialPool,
+            address(this).balance,
+            petitions.length,
+            donersCount,
+            admin
+        );
+    }
+
+    function getPetetionsCount() public view returns (uint) {
+        return petitions.length;
     }
 
 }
