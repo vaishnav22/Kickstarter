@@ -18,7 +18,7 @@ const CardExampleExtraContent = (data, index) => (
           size='mini'
           src='/images/avatar/large/steve.jpg'
         />
-        <Card.Header>{(data.header).toUpperCase()}</Card.Header>
+        <Card.Header>{data.header}</Card.Header>
         <Card.Meta>No. of contributers</Card.Meta>
         <Card.Description>
           {data.metadata}
