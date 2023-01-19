@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Blueprint from '../../components/Blueprint'
 import Kickstarter from '../../blockchain/kickstarter'
-import { Card, Container, Grid } from 'semantic-ui-react'
+import { Card, Button, Grid } from 'semantic-ui-react'
 import styles from '../../css/kickstarterCard.module.css'
 import { style } from '@mui/system'
 import web3 from '../../blockchain/web3'
 import DonateForm from '../../components/DonateForm'
+import {Link} from '../../routes'
 
 class KickstarterShow extends Component {
 
@@ -76,6 +77,7 @@ class KickstarterShow extends Component {
                 <h1 className={styles.heading}>{this.props.name}</h1>
                 </div>
                 <Grid>
+                    <Grid.Row>
                     <Grid.Column width={10}>
                         {this.cardGroup()}
                     </Grid.Column>
@@ -83,6 +85,16 @@ class KickstarterShow extends Component {
                     <Grid.Column width={6}>
                         <DonateForm address={this.props.address}/>
                     </Grid.Column> 
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                    <Link route={`/kickstarter/${this.props.address}/petitions`}>
+                            <a>
+                                <Button primary>View Petitions</Button>
+                            </a>
+                    </Link>
+                    </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Blueprint>
         )
