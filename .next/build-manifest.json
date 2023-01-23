@@ -25,10 +25,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/kickstarter/kickstarterShow": [
+    "/kickstarter/petitions/new": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/kickstarter/kickstarterShow.js"
+      "static/chunks/pages/kickstarter/petitions/new.js"
     ]
   },
   "ampFirstPages": []

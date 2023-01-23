@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Blueprint from '../../components/Blueprint'
 import Kickstarter from '../../blockchain/kickstarter'
-import { Card, Button, Grid } from 'semantic-ui-react'
+import { Card, Button, Grid, Icon } from 'semantic-ui-react'
 import styles from '../../css/kickstarterCard.module.css'
 import { style } from '@mui/system'
 import web3 from '../../blockchain/web3'
@@ -90,7 +90,12 @@ class KickstarterShow extends Component {
                         <Grid.Column>
                     <Link route={`/kickstarter/${this.props.address}/petitions`}>
                             <a>
-                                <Button primary>View Petitions</Button>
+                            <Button animated='fade' size="large" color="black">
+                            <Button.Content visible>View Petition</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='envelope open outline' />
+                            </Button.Content>
+                        </Button>
                             </a>
                     </Link>
                     </Grid.Column>
