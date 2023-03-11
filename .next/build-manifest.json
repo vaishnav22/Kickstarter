@@ -29,6 +29,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/kickstarter/kickstarterShow": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/kickstarter/kickstarterShow.js"
+    ],
+    "/kickstarter/petitions": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/kickstarter/petitions.js"
     ]
   },
   "ampFirstPages": []

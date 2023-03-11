@@ -12,17 +12,18 @@ class KickstarterNew extends Component {
     state = {
         error:'',
         minAmount: '',
-        loading: false
+        name: '',
+        spinner: false
     }
 
     onSubmit = async () => {
         event.preventDefault();
 
-        this.setState({loading: true, error: ''})
+        this.setState({spinner: true, error: ''})
 
         try {
         const accounts = await web3.eth.getAccounts();
-        await factory.methods.createKickstarter(this.state.minAmount).send({
+        await factory.methods.createKickstarter(this.state.minAmount, this.state.name).send({
             from: accounts[0]
         })
         Router.pushRoute('/')
@@ -30,7 +31,7 @@ class KickstarterNew extends Component {
             this.setState({error: e.message })
         }
 
-        this.setState({loading: false})
+        this.setState({spinner: false})
     }
 
     render() {
@@ -41,10 +42,14 @@ class KickstarterNew extends Component {
 
                     <Form size="big" onSubmit={this.onSubmit} warning={!!this.state.error}>
                         <Form.Field inline required>
+                            <label size="large">Enter the project name</label>
+                            <Input placeholder='Enter the project name' value={this.state.name} onChange={e => this.setState({name: e.target.value})}/>
+                        </Form.Field>
+                        <Form.Field inline required>
                             <label size="large">Enter Minimum Amount for the Kickstarter</label>
                             <Input label={{ basic: true, content: 'wei' }} labelPosition='right' placeholder='Enter amount...' value={this.state.minAmount} onChange={e => this.setState({minAmount: e.target.value})}/>
                         </Form.Field>
-                        <Button animated='fade' size="large" loading={this.state.loading} color="black">
+                        <Button animated='fade' size="large" loading={this.state.spinner} color="black">
                             <Button.Content visible>Initiate Kickstarter</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='rocket' />

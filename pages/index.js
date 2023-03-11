@@ -6,23 +6,41 @@ import CardExampleColumnCount from '../components/semantic-ui_card'
 import styles from '../css/index.module.css'
 import Blueprint from '../components/Blueprint'
 import { Link } from '../routes'
+import Kickstarter from '../blockchain/kickstarter'
 
 class KickstarterLanding extends Component {
 
     static async getInitialProps() {
         const kickstarter = await factory.methods.getDeployedKickstarters().call();
-        return { kickstarter }
+        var dict = []
+        let data = await Promise.all(kickstarter.map(async address => {
+            var obj = {}
+            const getAddress = Kickstarter(address)
+            const summary = await getAddress.methods.getDetails().call()
+            var v_add = address
+            obj[v_add] = summary[5]
+            // dict['address'] = address
+            // dict['name'] = summary[5]
+            dict.push(obj)
+            // console.log(data);
+        }))
+
+        // console.log(dict[0]);
+        return { kickstarter, dict }
     }
 
     renderData() {
-        const items = this.props.kickstarter.map(address => {
+        console.log(this.props.dict);
+        const items = this.props.kickstarter.map((address, index) => {
             return {
-                header: address,
+                header: this.props.dict[index][address],
+                // description: `/kickstarter/${address}`,
                 description: (
                     <Link route={`/kickstarter/${address}`}>
-                        <a>View</a>
+                        <a>View detail</a>
                     </Link>
-                )
+                ),
+                metadata: address
             }
         })
 

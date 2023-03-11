@@ -14,9 +14,9 @@ const deploy = async () => {
 
     console.log('Attempting to deploy from account', accounts[0]);
 
-    const data = await new web3.eth.Contract(JSON.parse(compiledKickstarterFactory.interface))
-        .deploy({ data: compiledKickstarterFactory.bytecode, arguments: ['Hi there!'] })
-        .send({ gas: '1000000', from: accounts[0] })
+    const data = await new web3.eth.Contract(compiledKickstarterFactory.abi)
+        .deploy({ data: compiledKickstarterFactory.evm.bytecode.object})
+        .send({ gas: '1400000', from: accounts[0] })
 
     console.log('Contract deployed to', data.options.address)
     provider.engine.stop()

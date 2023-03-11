@@ -1,6 +1,7 @@
 import React from 'react'
-import { Card, Icon, Label } from 'semantic-ui-react'
+import { Card, Image, Button, Container } from 'semantic-ui-react'
 import styles from '../css/card.module.css'
+
 
 // const description = [
 //   'Amy is a violinist with 2 years experience in the wedding industry.',
@@ -8,17 +9,32 @@ import styles from '../css/card.module.css'
 // ].join(' ')
 
 const CardExampleExtraContent = (data, index) => (
-  <Card key={index} className={styles.card}>
-    <Card.Content header={'Kickstarter ' + index}/>
-    <Card.Content description={data.header} className={styles.card_description}/>
-    <Label as='a' className={styles.label}>
-      <Icon name='mail' />
-      {data.description}
-    </Label>
-    <Card.Content extra>
-      <Icon name='user' />4 contribution
-    </Card.Content>
-  </Card>
+  <div className={styles.container}>
+    <Card.Group>
+    <Card>
+      <Card.Content>
+        <Image
+          floated='right'
+          size='mini'
+          src='/images/avatar/large/steve.jpg'
+        />
+        <Card.Header>{data.header}</Card.Header>
+        <Card.Meta>No. of contributers</Card.Meta>
+        <Card.Description>
+          {data.metadata}
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <div className='ui two buttons'>
+          <Button basic color='green'>
+            {data.description}
+          </Button>
+        </div>
+      </Card.Content>
+    </Card>
+    </Card.Group>
+  </div>
+  
 )
 
 export default CardExampleExtraContent

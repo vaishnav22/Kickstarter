@@ -1,18 +1,13 @@
-.card {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 60%;
+.container {
+    max-width: 300px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
-.card_description {
+.card{
+    max-width: 250px;
+    height: 150px;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.label {
-    margin-left: 40px;
-    max-width: 70px;
-    margin-bottom: 30px;
+    text-overflow: hidden;
 }

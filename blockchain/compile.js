@@ -7,13 +7,38 @@ fs.removeSync(buildPath)
 
 const kickstarterPath = path.resolve(__dirname, 'contracts','Kickstarter.sol')
 const source = fs.readFileSync(kickstarterPath, 'utf-8')
-const output = solc.compile(source,1).contracts
 
-fs.ensureDirSync(buildPath)
-
-for (let contract in output) {
-    fs.outputJSONSync(
-        path.resolve(buildPath, contract.replace(':', '') + '.json'),
-        output[contract]
-    )
+var input = {
+    language: "Solidity",
+    sources: {
+      "Kickstarter.sol": {
+        content: source
+      }
+    },
+    settings: {
+      outputSelection: {
+        "*": {
+          "*": ["*"]
+        }
+      }
+    }
+};
+  
+const output = JSON.parse(solc.compile(JSON.stringify(input)));
+  
+if (output.errors) {
+    output.errors.forEach(err => {
+      console.log(err.formattedMessage);
+    });
+} else {
+    const contracts = output.contracts["Kickstarter.sol"];
+    fs.ensureDirSync(buildPath);
+    for (let contractName in contracts) {
+      const contract = contracts[contractName];
+      fs.writeFileSync(
+        path.resolve(buildPath, `${contractName}.json`),
+        JSON.stringify(contract, null, 2),
+        "utf8"
+      );
+    }
 }
