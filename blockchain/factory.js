@@ -3,7 +3,7 @@ import KickstarterFactory from './build/KickstarterFactory.json'
 
 const constructor = new web3.eth.Contract(
     KickstarterFactory.abi,
-    '0xE8C6829f9C1a24Cf31d140736FF862fC4311656A'
+    '0x2707c730A74Ac3333E59F8262bEab1e1e7FA5C85'
 );
 
 export default constructor;

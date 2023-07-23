@@ -24,21 +24,13 @@ var input = {
     }
 };
   
-const output = JSON.parse(solc.compile(JSON.stringify(input)));
+const output = JSON.parse(solc.compile(JSON.stringify(input))).contracts['Kickstarter.sol'];
   
-if (output.errors) {
-    output.errors.forEach(err => {
-      console.log(err.formattedMessage);
-    });
-} else {
-    const contracts = output.contracts["Kickstarter.sol"];
-    fs.ensureDirSync(buildPath);
-    for (let contractName in contracts) {
-      const contract = contracts[contractName];
-      fs.writeFileSync(
-        path.resolve(buildPath, `${contractName}.json`),
-        JSON.stringify(contract, null, 2),
-        "utf8"
-      );
-    }
+fs.ensureDirSync(buildPath)
+
+for (let contract in output) {
+  fs.outputJSONSync(
+    path.resolve(buildPath, contract.replace(":", '') + ".json"),
+    output[contract]
+  )
 }
